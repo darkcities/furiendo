@@ -3,7 +3,6 @@ const bodyParser = require('body-parser');
 const ejs = require('ejs');
 const http = require('http');
 const cookieParser = require('cookie-parser');
-
 const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
 const mongoose = require('mongoose');
@@ -16,8 +15,7 @@ const container = require('./container');
 
 container.resolve(function(users, _){
     mongoose.Promise = global.Promise;
-    //mongoose.connect('mongodb://localhost/furiendo', {useMongoClient: true});
-    mongoose.connect('mongodb://localhost/dogapp', {useNewUrlParser: true, useCreateIndex: true});
+    mongoose.connect('mongodb://localhost/furiendo', {useNewUrlParser: true});
     const app = SetupExpress();
 
     function SetupExpress(){
@@ -49,7 +47,7 @@ container.resolve(function(users, _){
         app.use(bodyParser.json());
         app.use(bodyParser.urlencoded({extended: true}));
        
-       //app.use(checkBody,getValidationResults);
+      
 
         app.use(session({
             secret: 'thisisasecretkey',

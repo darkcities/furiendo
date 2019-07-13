@@ -5,10 +5,12 @@ const container = dependable.container();
 
 const simpleDependcies = [
     ['_', 'lodash'],
-    ['passport', 'passport']
+    ['passport', 'passport'],
+    ['validator', 'express-validator']
 
     
 ];
+
 
 simpleDependcies.forEach(function(val){
     container.register(val[0], function(){
