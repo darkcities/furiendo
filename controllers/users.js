@@ -5,10 +5,10 @@ module.exports = function(_, passport, validator){
         SetRouting: function(router){
             router.get('/', this.indexPage);
             router.get('/signup', this.getSignUp);
-            router.get('/auth/facebook', this.getFacebookLogin);
-            router.get('/auth/facebook/callback', this.facebookLogin);
-            router.get('/auth/google', this.getGoogleLogin);
-            router.get('/auth/google/callback', this.googleLogin);
+            //router.get('/auth/facebook', this.getFacebookLogin);
+            //router.get('/auth/facebook/callback', this.facebookLogin);
+            //router.get('/auth/google', this.getGoogleLogin);
+            //router.get('/auth/google/callback', this.googleLogin);
             
             
             // router.post('/', User.LoginValidation, this.postLogin);
