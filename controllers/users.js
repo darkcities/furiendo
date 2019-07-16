@@ -30,7 +30,7 @@ module.exports = function(_, passport, validator){
         
         indexPage: function(req, res){
             const errors = req.flash('error');
-            return res.render('index', {title: 'Footballkk | Login', messages: errors, hasErrors: errors.length > 0});
+            return res.render('index', {title: 'Furiendo | Login', messages: errors, hasErrors: errors.length > 0});
         },
         
         postLogin: passport.authenticate('local.login', {
@@ -41,7 +41,7 @@ module.exports = function(_, passport, validator){
         
         getSignUp: function(req, res){
             const errors = req.flash('error');
-            return res.render('signup', {title: 'Footballkk | SignUp', messages: errors, hasErrors: errors.length > 0});
+            return res.render('signup', {title: 'Furiendo | SignUp', messages: errors, hasErrors: errors.length > 0});
         },
 
         postValidation: function(req, res, next) {
