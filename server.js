@@ -15,7 +15,7 @@ const container = require('./container');
 
 container.resolve(function(users, _){
     mongoose.Promise = global.Promise;
-    mongoose.connect('mongodb://localhost/furiendo', {useNewUrlParser: true});
+    mongoose.connect('mongodb://localhost/furiendo', {useNewUrlParser: true, useCreateIndex: true});
     const app = SetupExpress();
 
     function SetupExpress(){
@@ -38,6 +38,8 @@ container.resolve(function(users, _){
 
     function ConfigureExpress(app){
         require('./passport/passport-local');
+        require('./passport/passport-facebook');
+        require('./passport/passport-google');
 
 
         app.use(express.static('public'));

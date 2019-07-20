@@ -5,20 +5,20 @@ module.exports = function(_, passport, validator){
         SetRouting: function(router){
             router.get('/', this.indexPage);
             router.get('/signup', this.getSignUp);
-            //router.get('/auth/facebook', this.getFacebookLogin);
-            //router.get('/auth/facebook/callback', this.facebookLogin);
-            //router.get('/auth/google', this.getGoogleLogin);
-            //router.get('/auth/google/callback', this.googleLogin);
+            router.get('/home', this.homePage);
+            router.get('/auth/facebook', this.getFacebookLogin);
+            router.get('/auth/facebook/callback', this.facebookLogin);
+            router.get('/auth/google', this.getGoogleLogin);
+            router.get('/auth/google/callback', this.googleLogin);
             
             
-            // router.post('/', User.LoginValidation, this.postLogin);
+            
             router.post('/', [
                 validator.check('email').not().isEmpty().isEmail()
                     .withMessage('Email is invalid'),
                 validator.check('password').not().isEmpty()
                     .withMessage('Password is required and must be at least 5 characters.'),
             ], this.postValidation, this.postLogin);
-            // router.post('/signup', User.SignUpValidation, this.postSignUp);
             router.post('/signup', [
                 validator.check('username').not().isEmpty().isLength({min: 5}).withMessage('Username is required and must be at least 5 characters.'),
                 validator.check('email').not().isEmpty().isEmail()
@@ -35,7 +35,7 @@ module.exports = function(_, passport, validator){
         
         postLogin: passport.authenticate('local.login', {
             successRedirect: '/home',
-            failureRedirect: '',
+            failureRedirect: '/',
             failureFlash: true
         }),
         
@@ -66,12 +66,32 @@ module.exports = function(_, passport, validator){
         
         postSignUp: passport.authenticate('local.signup', {
             successRedirect: '/home',
-            failureRedirect: '',
+            failureRedirect: '/signup',
+            failureFlash: true
+        }),
+
+        getFacebookLogin: passport.authenticate('facebook', {
+            scope: 'email'
+        }),
+
+        getGoogleLogin: passport.authenticate('google', {
+            scope: ['https://www.googleapis.com/auth/plus.login', 'https://www.googleapis.com/auth/plus.profile.emails.read']
+        }),
+        
+        googleLogin: passport.authenticate('google', {
+            successRedirect: '/home',
+            failureRedirect: '/signup',
+            failureFlash: true
+        }),
+
+        facebookLogin: passport.authenticate('facebook', {
+            successRedirect: '/home',
+            failureRedirect: '/signup',
             failureFlash: true
         }),
 
         homePage: function(req,res){
-            return res.render('home');
+        return res.render('home');
         }
     }
 }
